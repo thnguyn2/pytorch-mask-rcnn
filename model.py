@@ -23,8 +23,8 @@ from torch.autograd import Variable
 
 import utils
 import visualize
-from nms.nms_wrapper import nms
-from roialign.roi_align.crop_and_resize import CropAndResizeFunction
+#from nms.nms_wrapper import nms
+#from roialign.roi_align.crop_and_resize import CropAndResizeFunction
 
 
 ############################################################
@@ -1986,6 +1986,9 @@ class MaskRCNN(nn.Module):
                 max_dim=self.config.IMAGE_MAX_DIM,
                 padding=self.config.IMAGE_PADDING)
             molded_image = mold_image(molded_image, self.config)
+            import pdb
+            pdb.set_trace()
+        
             # Build image_meta
             image_meta = compose_image_meta(
                 0, image.shape, window,

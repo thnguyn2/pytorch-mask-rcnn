@@ -278,7 +278,7 @@ def resize_image(image, min_dim=None, max_dim=None, padding=False):
     padding: If true, pads image with zeros so it's size is max_dim x max_dim
 
     Returns:
-    image: the resized image
+    image: the resized image of size
     window: (y1, x1, y2, x2). If max_dim is provided, padding might
         be inserted in the returned image. If so, this window is the
         coordinates of the image part of the full image (excluding
@@ -290,7 +290,6 @@ def resize_image(image, min_dim=None, max_dim=None, padding=False):
     h, w = image.shape[:2]
     window = (0, 0, h, w)
     scale = 1
-
     # Scale?
     if min_dim:
         # Scale up but not down
@@ -302,8 +301,7 @@ def resize_image(image, min_dim=None, max_dim=None, padding=False):
             scale = max_dim / image_max
     # Resize image and mask
     if scale != 1:
-        image = scipy.misc.imresize(
-            image, (round(h * scale), round(w * scale)))
+        image = np.resize(image, (round(h * scale), round(w * scale), image.shape[2]))
     # Need padding?
     if padding:
         # Get new height and width
@@ -312,7 +310,11 @@ def resize_image(image, min_dim=None, max_dim=None, padding=False):
         bottom_pad = max_dim - h - top_pad
         left_pad = (max_dim - w) // 2
         right_pad = max_dim - w - left_pad
-        padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
+        if len(image.shape) == 2:
+            padding = [(top_pad, bottom_pad), (left_pad, right_pad)]
+        else:
+            padding = [(top_pad, bottom_pad), (left_pad, right_pad), (0, 0)]
+        
         image = np.pad(image, padding, mode='constant', constant_values=0)
         window = (top_pad, left_pad, h + top_pad, w + left_pad)
     return image, window, scale, padding

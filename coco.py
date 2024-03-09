@@ -52,7 +52,7 @@ import model as modellib
 import torch
 
 # Root directory of the project
-ROOT_DIR = os.getcwd()
+ROOT_DIR = "/home/pathai/pytorch-mask-rcnn"
 
 # Path to trained weights file
 COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.pth")

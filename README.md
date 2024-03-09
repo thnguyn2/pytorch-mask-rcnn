@@ -111,10 +111,10 @@ with the download option set, e.g.:
     # Train a new model starting from pre-trained COCO weights
     python coco.py train --dataset=/path/to/coco/ --model=coco --download=true
 
-You can also run the COCO evaluation code with:
-
-    # Run COCO evaluation on the last trained model
-    python coco.py evaluate --dataset=/path/to/coco/ --model=last
+You can also run the COCO evaluation code using
+      
+    # Run COCO evaluation on the COCO model
+    python coco.py evaluate --dataset=/home/pathai/datasets/coco2014 --model=coco
 
 The training schedule, learning rate, and other parameters can be set in coco.py.
 
